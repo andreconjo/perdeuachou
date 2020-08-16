@@ -1,0 +1,33 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 1000
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/perdeuachou?reWriteBatchedInserts=true
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: true
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true
