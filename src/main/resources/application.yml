@@ -19,9 +19,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/perdeuachou?reWriteBatchedInserts=true
+    url: jdbc:postgresql://perdeuacheou-rds.cyteuokmme6u.us-east-1.rds.amazonaws.com:5432/perdeuachou?reWriteBatchedInserts=true
     username: postgres
-    password: 1234
+    password: 12345678
     driver-class-name: org.postgresql.Driver
     platform: postgres
   jackson:
