@@ -2,6 +2,8 @@ package br.com.perdeuachou.api.model;
 
 
 import br.com.perdeuachou.api.model.pertence.Pertence;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,20 +20,29 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String email;
     @NotNull
+    @Column(unique = true)
+    private String senha;
+    @NotNull
+    @Column(unique = true)
     private String telefone;
     @NotNull
+    @Column(unique = true)
     private String cpfCpnj;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Pertence> pertences;
+    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
 
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String email, String telefone, String cpfCpnj, List<Pertence> pertences) {
+    public Usuario(Long id, @NotNull String nome, String email, @NotNull String senha, @NotNull String telefone, @NotNull String cpfCpnj, List<Pertence> pertences) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
         this.telefone = telefone;
         this.cpfCpnj = cpfCpnj;
         this.pertences = pertences;
@@ -61,6 +72,14 @@ public class Usuario {
         this.email = email;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -85,15 +104,11 @@ public class Usuario {
         this.pertences = pertences;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", cpfCpnj='" + cpfCpnj + '\'' +
-                ", pertences=" + pertences +
-                '}';
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

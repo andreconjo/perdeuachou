@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 public class Pertence {
@@ -18,24 +19,32 @@ public class Pertence {
     private List<Image> images;
     private String descricao;
     private String categoria;
-    private String encontradoEm;
+    private String perdidoEm;
     private Status status;
+    private Locale data;
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+    @OneToOne
+    @JoinColumn(name = "entregue_usuario_id")
+    private Usuario entregue;
+
+    @Transient
+    private int score;
 
     public Pertence() {
     }
 
-    public Pertence(Long id, List<Image> images, String descricao, String categoria, String encontradoEm, Status status, Tipo tipo, Usuario usuario) {
+    public Pertence(Long id, List<Image> images, String descricao, String categoria, String perdidoEm, Status status, Locale data, Tipo tipo, Usuario usuario) {
         this.id = id;
         this.images = images;
         this.descricao = descricao;
         this.categoria = categoria;
-        this.encontradoEm = encontradoEm;
+        this.perdidoEm = perdidoEm;
         this.status = status;
+        this.data = data;
         this.tipo = tipo;
         this.usuario = usuario;
     }
@@ -72,12 +81,12 @@ public class Pertence {
         this.categoria = categoria;
     }
 
-    public String getEncontradoEm() {
-        return encontradoEm;
+    public String getPerdidoEm() {
+        return perdidoEm;
     }
 
-    public void setEncontradoEm(String encontradoEm) {
-        this.encontradoEm = encontradoEm;
+    public void setPerdidoEm(String encontradoEm) {
+        this.perdidoEm = encontradoEm;
     }
 
     public Status getStatus() {
@@ -86,6 +95,14 @@ public class Pertence {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Locale getData() {
+        return data;
+    }
+
+    public void setData(Locale data) {
+        this.data = data;
     }
 
     public Tipo getTipo() {
@@ -104,6 +121,21 @@ public class Pertence {
         this.usuario = usuario;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public Usuario getEntregue() {
+        return entregue;
+    }
+
+    public void setEntregue(Usuario entregue) {
+        this.entregue = entregue;
+    }
 
     @Override
     public String toString() {
@@ -112,7 +144,7 @@ public class Pertence {
                 ", images=" + images +
                 ", descricao='" + descricao + '\'' +
                 ", categoria='" + categoria + '\'' +
-                ", encontradoEm='" + encontradoEm + '\'' +
+                ", encontradoEm='" + perdidoEm + '\'' +
                 ", status=" + status +
                 ", tipo=" + tipo +
                 ", usuario=" + usuario +
