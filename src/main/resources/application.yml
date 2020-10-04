@@ -34,3 +34,5 @@ spring:
       fail-on-unknown-properties: true
     mapper:
       ACCEPT_CASE_INSENSITIVE_ENUMS: true
+
+amazonProperties:
