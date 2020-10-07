@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,6 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String email;
     @NotNull
-    @Column(unique = true)
     private String senha;
     @NotNull
     @Column(unique = true)
@@ -34,8 +34,11 @@ public class Usuario {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    private LocalDate dataCadastro;
+
 
     public Usuario() {
+        this.dataCadastro = LocalDate.now();
     }
 
     public Usuario(Long id, @NotNull String nome, String email, @NotNull String senha, @NotNull String telefone, @NotNull String cpfCpnj, List<Pertence> pertences) {
@@ -110,5 +113,13 @@ public class Usuario {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 }

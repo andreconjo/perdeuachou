@@ -1,18 +1,22 @@
 package br.com.perdeuachou.api.service.impl;
 
+import br.com.perdeuachou.api.model.Usuario;
 import br.com.perdeuachou.api.model.pertence.Pertence;
+import br.com.perdeuachou.api.model.pertence.Status;
 import br.com.perdeuachou.api.model.pertence.Tipo;
 import br.com.perdeuachou.api.repository.PertenceRepository;
 import br.com.perdeuachou.api.service.PertenceService;
+import br.com.perdeuachou.api.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -22,6 +26,9 @@ public class PertenceServiceImpl implements PertenceService {
 
     @Autowired
     PertenceRepository repository;
+
+    @Autowired
+    UsuarioService usuarioService;
 
     @Override
     public Pertence save(Pertence pertence){
@@ -50,7 +57,7 @@ public class PertenceServiceImpl implements PertenceService {
                     score.addAndGet(10);
                 if (pertencePerdido.getPerdidoEm().toLowerCase().contains(pertence.getPerdidoEm().toLowerCase()))
                     score.addAndGet(10);
-                if (pertencePerdido.getData().equals(pertence.getData()))
+                if (pertence.getData() != null && pertencePerdido.getData().equals(pertence.getData()))
                     score.addAndGet(10);
                 pertencePerdido.setScore(score.get());
                 if (score.get() > 0)
@@ -59,9 +66,63 @@ public class PertenceServiceImpl implements PertenceService {
             }).filter(Objects::nonNull).collect(Collectors.toList()));
 
         });
-
-        return candidatos.get().stream().sorted(Comparator.comparing(Pertence::getScore, Comparator.reverseOrder())).collect(Collectors.toList());
+        if(candidatos.get() != null)
+            return candidatos.get().stream().sorted(Comparator.comparing(Pertence::getScore, Comparator.reverseOrder())).collect(Collectors.toList());
+        return Collections.emptyList();
     }
 
+    @Override
+    public List<Long> cadastrosDaSemana() {
+        List<Long> cadastrosNaSemana = new ArrayList<>();
 
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
+        Instant instant = c.toInstant();
+        LocalDate domingo = instant.atZone(defaultZoneId).toLocalDate();
+
+        Period period = Period.between(domingo, LocalDate.now());
+
+        for(int i = 0; i <= period.getDays(); i++)
+            cadastrosNaSemana.add(repository.countAllByDataCadastro(domingo.plusDays(i)));
+
+        return cadastrosNaSemana;
+    }
+
+    @Override
+    public List<Long> entregasDaSemana() {
+        List<Long> entregasDaSemana = new ArrayList<>();
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
+        Instant instant = c.toInstant();
+        LocalDate domingo = instant.atZone(defaultZoneId).toLocalDate();
+
+        Period period = Period.between(domingo, LocalDate.now());
+
+        for(int i = 0; i <= period.getDays(); i++)
+            entregasDaSemana.add(repository.countAllByDataEntrega(domingo.plusDays(i)));
+
+        return entregasDaSemana;
+    }
+
+    @Override
+    public void entrega(Long pertenceId, Long usuarioId) {
+        Optional<Pertence> pertence = repository.findById(pertenceId);
+        if(pertence.isPresent()) {
+            Optional<Usuario> usuario = usuarioService.buscarPorId(usuarioId);
+            if(usuario.isPresent()) {
+                pertence.get().setDataEntrega(LocalDate.now());
+                pertence.get().setEntregue(usuario.get());
+                pertence.get().setStatus(Status.DEVOLVIDO);
+
+                repository.save(pertence.get());
+            }
+        }
+    }
 }

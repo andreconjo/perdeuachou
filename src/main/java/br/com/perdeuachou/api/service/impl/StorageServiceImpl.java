@@ -44,7 +44,7 @@ public class StorageServiceImpl implements StorageService {
                 final File file = this.convertMultiPartFileToFile(multipartFile);
                 urls.add(this.uploadFileToS3Bucket(file));
                 System.out.println("File upload is completed.");
-                file.deleteOnExit();
+                file.delete();
             } catch (final AmazonServiceException ex) {
                 System.out.println("File upload is failed.");
                 System.out.println("Error= {} while uploading file." + ex.getMessage());

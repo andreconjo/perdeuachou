@@ -12,7 +12,7 @@ public class UserSystem extends User {
     private Usuario user = null;
 
     public UserSystem(Usuario user, Collection<? extends GrantedAuthority> authorities) {
-        super(user.getId().toString(), user.getSenha(), authorities);
+        super(user.getNome(), user.getSenha(), authorities);
         this.user = user;
     }
 

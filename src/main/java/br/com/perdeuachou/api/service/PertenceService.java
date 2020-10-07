@@ -12,4 +12,10 @@ public interface PertenceService {
     Page<Pertence> getAllPaginated(Pageable pageable);
 
     List<Pertence> getMatches(Long userId, Pageable pageable);
+
+    List<Long> cadastrosDaSemana();
+
+    List<Long> entregasDaSemana();
+
+    void entrega(Long pertenceId, Long usuarioId);
 }

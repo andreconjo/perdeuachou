@@ -5,6 +5,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,13 +32,19 @@ public class Pertence {
     @JoinColumn(name = "entregue_usuario_id")
     private Usuario entregue;
 
+    private LocalDate dataEntrega;
+    private LocalDate dataCadastro;
+
     @Transient
     private int score;
 
     public Pertence() {
+        this.dataCadastro = LocalDate.now();
     }
 
-    public Pertence(Long id, List<Image> images, String descricao, String categoria, String perdidoEm, Status status, Locale data, Tipo tipo, Usuario usuario) {
+    public Pertence(Long id, List<Image> images, String descricao, String categoria,
+                    String perdidoEm, Status status, Locale data, Tipo tipo, Usuario usuario,
+                    Usuario entregue, LocalDate dataEntrega, int score) {
         this.id = id;
         this.images = images;
         this.descricao = descricao;
@@ -47,6 +54,9 @@ public class Pertence {
         this.data = data;
         this.tipo = tipo;
         this.usuario = usuario;
+        this.entregue = entregue;
+        this.dataEntrega = dataEntrega;
+        this.score = score;
     }
 
     public Long getId() {
@@ -137,6 +147,22 @@ public class Pertence {
         this.entregue = entregue;
     }
 
+    public LocalDate getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(LocalDate dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
     @Override
     public String toString() {
         return "Pertence{" +
@@ -144,10 +170,15 @@ public class Pertence {
                 ", images=" + images +
                 ", descricao='" + descricao + '\'' +
                 ", categoria='" + categoria + '\'' +
-                ", encontradoEm='" + perdidoEm + '\'' +
+                ", perdidoEm='" + perdidoEm + '\'' +
                 ", status=" + status +
+                ", data=" + data +
                 ", tipo=" + tipo +
                 ", usuario=" + usuario +
+                ", entregue=" + entregue +
+                ", dataEntrega=" + dataEntrega +
+                ", dataCadastro=" + dataCadastro +
+                ", score=" + score +
                 '}';
     }
 }

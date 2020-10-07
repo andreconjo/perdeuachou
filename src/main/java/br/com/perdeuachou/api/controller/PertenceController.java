@@ -33,4 +33,10 @@ public class PertenceController {
     public ResponseEntity<Pertence> save(@RequestBody Pertence pertence) {
         return new ResponseEntity<>(service.save(pertence), HttpStatus.CREATED);
     }
+
+    @PatchMapping("entrega/{pertenceId}/{usuarioId}")
+    public ResponseEntity<?> entreguar(@PathVariable("pertenceId") Long pertenceId, @PathVariable("usuarioId") Long entregueParaUsuarioId) {
+        service.entrega(pertenceId, entregueParaUsuarioId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
