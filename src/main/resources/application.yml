@@ -22,9 +22,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
   datasource:
-    url: jdbc:postgresql://database-1-perdeu-achou.ckrkizhcvbzb.us-east-1.rds.amazonaws.com:5432/database-1-perdeu-achou?reWriteBatchedInserts=true
+    url: jdbc:postgresql://perdeuacheou-rds.cyteuokmme6u.us-east-1.rds.amazonaws.com:5432/perdeuachou?reWriteBatchedInserts=true
     username: postgres
-    password: nU6k6Xlj8fi3pqmyuui3
+    password: 12345678
     driver-class-name: org.postgresql.Driver
     platform: postgres
   jackson:
@@ -36,7 +36,7 @@ spring:
       ACCEPT_CASE_INSENSITIVE_ENUMS: true
 
 amazonProperties:
-  endpointUrl: https://s3.amazonaws.com
-  accessKey: AKIA2WF64I67LWVKC24Y
-  secretKey: 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
-  bucketName: perdeuachou
+  endpointUrl:
+  accessKey:
+  secretKey:
+  bucketName:
