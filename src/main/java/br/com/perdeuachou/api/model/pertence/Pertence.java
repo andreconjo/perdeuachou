@@ -1,6 +1,8 @@
 package br.com.perdeuachou.api.model.pertence;
 
 import br.com.perdeuachou.api.model.Usuario;
+import br.com.perdeuachou.api.utils.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,16 +16,24 @@ public class Pertence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Usuario.class)
     private Long id;
     @Fetch(FetchMode.SUBSELECT)
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonView(Views.Usuario.class)
     private List<Image> images;
+    @JsonView(Views.Usuario.class)
     private String descricao;
+    @JsonView(Views.Usuario.class)
     private String categoria;
+    @JsonView(Views.Usuario.class)
     private String perdidoEm;
+    @JsonView(Views.Usuario.class)
     private Status status;
+    @JsonView(Views.Usuario.class)
     private Locale data;
     @Enumerated(EnumType.STRING)
+    @JsonView(Views.Usuario.class)
     private Tipo tipo;
     @ManyToOne
     @JoinColumn(name = "usuario_id")

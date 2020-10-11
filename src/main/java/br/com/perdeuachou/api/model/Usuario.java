@@ -2,6 +2,8 @@ package br.com.perdeuachou.api.model;
 
 
 import br.com.perdeuachou.api.model.pertence.Pertence;
+import br.com.perdeuachou.api.utils.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -15,20 +17,26 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Usuario.class)
     private Long id;
     @NotNull
+    @JsonView(Views.Usuario.class)
     private String nome;
     @Column(unique = true, nullable = false)
+    @JsonView(Views.Usuario.class)
     private String email;
     @NotNull
     private String senha;
     @NotNull
     @Column(unique = true)
+    @JsonView(Views.Usuario.class)
     private String telefone;
     @NotNull
     @Column(unique = true)
+    @JsonView(Views.Usuario.class)
     private String cpfCpnj;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonView(Views.Usuario.class)
     private List<Pertence> pertences;
     @Fetch(value = FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
