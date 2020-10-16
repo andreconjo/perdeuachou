@@ -17,6 +17,10 @@ public interface PertenceService {
 
     List<Long> cadastrosDaSemana();
 
+    long cadastros();
+
+    long entregas();
+
     List<Long> entregasDaSemana();
 
     void entrega(Long pertenceId, Long usuarioId);

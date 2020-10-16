@@ -12,6 +12,8 @@ public interface UsuarioService {
 
     List<Long> cadastrosDaSemana();
 
+    List<Long> cadastros();
+
     Optional<Usuario> buscarPorId(Long usuario);
 
     List<Usuario> buscarTodos();

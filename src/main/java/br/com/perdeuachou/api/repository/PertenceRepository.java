@@ -21,4 +21,6 @@ public interface PertenceRepository extends JpaRepository<Pertence, Long> {
 
     Page<Pertence> findAllByUsuarioIdAndTipo(Long userId, Tipo tipo, Pageable pageable);
 
+    long countAllByDataEntregaIsNotNull();
+
 }

@@ -36,7 +36,4 @@ spring:
       ACCEPT_CASE_INSENSITIVE_ENUMS: true
 
 amazonProperties:
-  endpointUrl:
-  accessKey:
-  secretKey:
-  bucketName:
+

@@ -97,6 +97,16 @@ public class PertenceServiceImpl implements PertenceService {
     }
 
     @Override
+    public long cadastros() {
+        return repository.count();
+    }
+
+    @Override
+    public long entregas() {
+       return repository.countAllByDataEntregaIsNotNull();
+    }
+
+    @Override
     public List<Long> entregasDaSemana() {
         List<Long> entregasDaSemana = new ArrayList<>();
 
