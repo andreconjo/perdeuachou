@@ -13,6 +13,8 @@ public interface PertenceService {
 
     List<Pertence> getMatches(Long userId, Pageable pageable);
 
+    Page<Pertence> getAllByUser(Long userId, String type, Pageable pageable);
+
     List<Long> cadastrosDaSemana();
 
     List<Long> entregasDaSemana();

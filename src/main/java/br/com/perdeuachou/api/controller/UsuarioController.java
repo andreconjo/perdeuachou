@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -31,4 +32,13 @@ public class UsuarioController {
         return usuario.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
+
+
+    @GetMapping
+    @JsonView(Views.Usuario.class)
+    public ResponseEntity<List<Usuario>> getAll() {
+        return new ResponseEntity<>(service.buscarTodos(), HttpStatus.OK);
+
+    }
+
 }

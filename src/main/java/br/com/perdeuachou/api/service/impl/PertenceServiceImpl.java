@@ -72,6 +72,11 @@ public class PertenceServiceImpl implements PertenceService {
     }
 
     @Override
+    public Page<Pertence> getAllByUser(Long userId, String type, Pageable pageable) {
+        return repository.findAllByUsuarioIdAndTipo(userId, Tipo.valueOf(type.toUpperCase()), pageable);
+    }
+
+    @Override
     public List<Long> cadastrosDaSemana() {
         List<Long> cadastrosNaSemana = new ArrayList<>();
 

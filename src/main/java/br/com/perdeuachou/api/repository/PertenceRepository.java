@@ -2,6 +2,8 @@ package br.com.perdeuachou.api.repository;
 
 import br.com.perdeuachou.api.model.pertence.Pertence;
 import br.com.perdeuachou.api.model.pertence.Tipo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +18,7 @@ public interface PertenceRepository extends JpaRepository<Pertence, Long> {
 
     Long countAllByDataCadastro(LocalDate data);
     Long countAllByDataEntrega(LocalDate data);
+
+    Page<Pertence> findAllByUsuarioIdAndTipo(Long userId, Tipo tipo, Pageable pageable);
 
 }

@@ -61,4 +61,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Optional<Usuario> buscarPorId(Long usuario) {
         return repository.findById(usuario);
     }
+
+    @Override
+    public List<Usuario> buscarTodos() {
+        return repository.findAll();
+    }
 }

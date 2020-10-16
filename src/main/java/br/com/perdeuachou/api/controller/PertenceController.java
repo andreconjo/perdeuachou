@@ -24,9 +24,14 @@ public class PertenceController {
         return new ResponseEntity<>(service.getAllPaginated(pageable), HttpStatus.OK);
     }
 
-    @GetMapping("{userId}")
-    public ResponseEntity<List<Pertence>> getAllBy(@PathVariable Long userId, Pageable pageable) {
+    @GetMapping("{userId}/match")
+    public ResponseEntity<List<Pertence>> getAllByMatch(@PathVariable Long userId, Pageable pageable) {
         return new ResponseEntity<>(service.getMatches(userId, pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("{userId}/{type}")
+    public ResponseEntity<Page<Pertence>> getAllByUser(@PathVariable Long userId, @PathVariable String type, Pageable pageable) {
+        return new ResponseEntity<>(service.getAllByUser(userId, type, pageable), HttpStatus.OK);
     }
 
     @PostMapping
