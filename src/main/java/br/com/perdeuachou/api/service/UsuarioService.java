@@ -12,7 +12,7 @@ public interface UsuarioService {
 
     List<Long> cadastrosDaSemana();
 
-    List<Long> cadastros();
+    long cadastros();
 
     Optional<Usuario> buscarPorId(Long usuario);
 

@@ -18,16 +18,16 @@ public class BiController {
     @Autowired
     private PertenceService pertenceService;
 
-    @GetMapping("cadastro/usuarios/semana")
+    @GetMapping("cadastro/usuarios")
     public ResponseEntity<?> todosUsuariosCadastrados() {
         return ResponseEntity.ok().body(usuarioService.cadastros());
     }
-    @GetMapping("cadastro/pertences/semana")
+    @GetMapping("cadastro/pertences")
     public ResponseEntity<?> todosPertencesCadastrados() {
         return ResponseEntity.ok().body(pertenceService.cadastros());
     }
 
-    @GetMapping("entregas/pertences/semana")
+    @GetMapping("entregas/pertences")
     public ResponseEntity<?> todosPertencesEntregues() {
         return ResponseEntity.ok().body(pertenceService.entregas());
     }

@@ -58,6 +58,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public long cadastros() {
+        return repository.count();
+    }
+
+    @Override
     public Optional<Usuario> buscarPorId(Long usuario) {
         return repository.findById(usuario);
     }
